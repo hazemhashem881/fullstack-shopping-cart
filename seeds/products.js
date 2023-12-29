@@ -1,7 +1,7 @@
-db.createCollection('users');
-db.createCollection('carts');
+const mongoose = require('mongoose');
+const Product = require('../models/Product');
 
-db.products.insertMany([
+const products = [
   {
     info: {
       name: 'Apple iPhone 8 Plus',
@@ -312,4 +312,25 @@ db.products.insertMany([
       cpu: 'octa_core'
     }
   }
-]);
+];
+
+const seedProducts = () => {
+  Product.remove({}, (err) => {
+    if(err) {
+      console.log(err);
+    }
+    console.log('PRODUCTS REMOVED');
+    products.forEach((product) => {
+      Product.create(product, (err, createdProduct) => {
+        if(err) {
+          console.log(err);
+        } else {
+          console.log('PRODUCT CREATED');
+          createdProduct.save();
+        }
+      })
+    })
+  })
+}
+
+module.exports = seedProducts;
