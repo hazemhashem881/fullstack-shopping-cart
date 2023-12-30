@@ -17,14 +17,14 @@ pipeline {
         stage('Build') {
 
             steps {
-                sh "sed -i 's/vlatest/${GIT_COMMIT}/' kaniko.yml "
+                sh "sed -i 's/vlatest/${env.GIT_COMMIT}/' kaniko.yml "
                 sh "kubectl apply -f kaniko.yml"
             } 
         }
 
         stage('CD') {
             steps {
-                sh "sed -i 's/latest/${GIT_COMMIT}/' deploy.yaml"
+                sh "sed -i 's/latest/${env.GIT_COMMIT}/' deploy.yaml"
                 sh "kubectl apply -f NS.yaml"
                 sh "kubectl apply -f conf.yaml"
                 sh "kubectl apply -f deploy.yaml"
