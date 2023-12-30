@@ -19,7 +19,7 @@ spec:
             - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
             - "--git=branch=db,single-branch=true"  # Replace <your-branch-name> with the specific branch you want to clone
             - "--destination=hazemhashem100/db:latest"
-            - "--dockerfile=Dockerfile"
+            - "--dockerfile=/db/Dockerfile"
           volumeMounts:
             - name: kaniko-secret
               mountPath: /kaniko/.docker
