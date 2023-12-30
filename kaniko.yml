@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontendkaniko
+  name: frontend-kaniko
   namespace: jenkins
 spec:
   selector:
     matchLabels:
-      app: kaniko
+      app: frontend-kaniko
   template:
     metadata:
       labels:
-        app: kaniko
+        app: frontend-kaniko
     spec:                                                 
       containers:
-        - name: kaniko
+        - name: frontend-kaniko
           image: gcr.io/kaniko-project/executor:v1.6.0-debug
-          imagePullPolicy: Always
+          imagePullPolicy: Never
           args:
             - "--context=https://github.com/hazemhashem881/fullstack-shopping-cart.git"
-            - "--branch=frontend"
+            -  "--git=branch=frontend" 
             - "--destination=hazemhashem100/frontend:latest"
             - "--dockerfile=Dockerfile"
           volumeMounts:
