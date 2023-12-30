@@ -17,7 +17,7 @@ spec:
         runAsUser: 1000
       initContainers:
         - name: git-clone-db
-          image: alpine/git
+          image: bitnami/git
           command: ["/bin/sh", "-c"]
           args:
             - |
