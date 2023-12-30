@@ -4,14 +4,11 @@ metadata:
   name: backend-kaniko
   namespace: jenkins
 spec:
-  selector:
-    matchLabels:
-      app: backend-kaniko
   template:
     metadata:
       labels:
-        app: backend-kaniko
-    spec:                                                 
+        app: backend-kaniko  # This label should match the selector in the Job spec
+    spec:
       containers:
         - name: backend-kaniko
           image: gcr.io/kaniko-project/executor:v1.6.0-debug
@@ -24,10 +21,11 @@ spec:
             - name: kaniko-secret
               mountPath: /kaniko/.docker
       restartPolicy: Never
-      volumes:
-        - name: kaniko-secret
-          secret:
-            secretName: regcred
-            items:
-              - key: .dockerconfigjson
-                path: config.json
+  backoffLimit: 2  # Optional: Specifies the number of retries before marking the job as failed
+  volumes:
+    - name: kaniko-secret
+      secret:
+        secretName: regcred
+        items:
+          - key: .dockerconfigjson
+          path: config.json
