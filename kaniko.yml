@@ -17,8 +17,8 @@ spec:
           image: gcr.io/kaniko-project/executor:v1.6.0-debug
           imagePullPolicy: Always
           args:
-            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git#Branch_name"
-            - "--destination=hazemhashem100/Container_name:latest"
+            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git#backend"
+            - "--destination=hazemhashem100/backend:latest"
             - "--dockerfile=Dockerfile"
           volumeMounts:
             - name: kaniko-secret
