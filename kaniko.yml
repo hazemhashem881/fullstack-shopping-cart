@@ -27,10 +27,11 @@ spec:
       initContainers:
         - name: git-clone
           image: alpine/git 
+          imagePullPolicy: Always
           args:
             - clone
             - --single-branch
-            - --branch=backend  
+            - --branch=db  
             - https://github.com/hazemhashem881/fullstack-shopping-cart.git
             - /workspace
           volumeMounts:
