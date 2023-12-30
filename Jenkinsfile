@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh "sed -i 's/latest/${GIT_COMMIT}/' react.yml"
                 
-                sh "kubectl create ns mern"
+                sh "kubectl apply -f NS.yaml"
                 sh "kubectl apply -f react.yml"
             }
         }
