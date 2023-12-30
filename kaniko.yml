@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaniko
+  namespace: jenkins
+spec:
+  selector:
+    matchLabels:
+      app: kaniko
+  template:
+    metadata:
+      labels:
+        app: kaniko
+    spec:                                                 
+      containers:
+        - name: kaniko
+          image: gcr.io/kaniko-project/executor:v1.6.0-debug
+          imagePullPolicy: Always
+          args:
+            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git#Branch_name"
+            - "--destination=hazemhashem100/Container_name:vlatest"
+            - "--dockerfile=Dockerfile"
+          volumeMounts:
+            - name: kaniko-secret
+              mountPath: /kaniko/.docker
+      volumes:
+        - name: kaniko-secret
+          secret:
+            secretName: regcred
+            items:
+              - key: .dockerconfigjson
+                path: config.json
