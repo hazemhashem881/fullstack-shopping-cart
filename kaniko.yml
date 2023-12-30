@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kaniko
+  name: backend-kaniko
   namespace: jenkins
 spec:
   selector:
@@ -13,11 +13,12 @@ spec:
         app: kaniko
     spec:                                                 
       containers:
-        - name: kaniko
+        - name: backend-kaniko
           image: gcr.io/kaniko-project/executor:v1.6.0-debug
           imagePullPolicy: Always
           args:
-            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git#backend"
+            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
+            - "--git=branch=backend,single-branch=true" 
             - "--destination=hazemhashem100/backend:latest"
             - "--dockerfile=Dockerfile"
           volumeMounts:
@@ -30,3 +31,5 @@ spec:
             items:
               - key: .dockerconfigjson
                 path: config.json
+
+
