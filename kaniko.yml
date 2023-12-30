@@ -17,9 +17,9 @@ spec:
           image: gcr.io/kaniko-project/executor:latest
           args:
             - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
-            - "--git=branch=db,single-branch=true"  # Replace <your-branch-name> with the specific branch you want to clone
+            - "--git=branch=frondend"  # Replace <your-branch-name> with the specific branch you want to clone
             - "--destination=hazemhashem100/db:latest"
-            - "--dockerfile=/db/Dockerfile"
+            - "--dockerfile=Dockerfile"
           volumeMounts:
             - name: kaniko-secret
               mountPath: /kaniko/.docker
