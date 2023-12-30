@@ -17,11 +17,11 @@ spec:
         runAsUser: 1000
       initContainers:
         - name: git-clone-db
-          image: bitnami/git
-          command: ["/bin/sh", "-c"]
+          image: alpine/git
+          securityContext:
+            runAsUser: 0
           args:
             - |
-              rm -rf /temp-workspace/* && \
               mkdir -p /temp-workspace && \
               git clone --verbose --single-branch --branch=db https://github.com/hazemhashem881/fullstack-shopping-cart.git /temp-workspace && \
               rm -rf /workspace/* && \
