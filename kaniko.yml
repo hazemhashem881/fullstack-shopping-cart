@@ -13,17 +13,15 @@ spec:
         app: kaniko
     spec:
       initContainers:
-        - name: git-clone
+        - name: git-clone-db
           image: alpine/git
           args:
             - clone
+            - --verbose
             - --single-branch
             - --branch=db
             - https://github.com/hazemhashem881/fullstack-shopping-cart.git
-            - /workspace
-          volumeMounts:
-            - name: git-repo
-              mountPath: /workspace
+            - /db
 
       containers:
         - name: kaniko
@@ -34,13 +32,13 @@ spec:
             - "--destination=hazemhashem100/db:latest"
             - "--dockerfile=/workspace/Dockerfile"
           volumeMounts:
-            - name: git-repo
-              mountPath: /workspace
+            - name: git-repo-db
+              mountPath: /db
             - name: kaniko-secret
               mountPath: /kaniko/.docker
 
       volumes:
-        - name: git-repo
+        - name: git-repo-db
           emptyDir: {}
         - name: kaniko-secret
           secret:
