@@ -7,25 +7,25 @@ spec:
   template:
     metadata:
       labels:
-        app: backend-kaniko  # This label should match the selector in the Job spec
+        app: backend-kaniko
     spec:
       containers:
-        - name: backend-kaniko
-          image: gcr.io/kaniko-project/executor:v1.6.0-debug
-          args:
-            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
-            - "--git=branch=backend"  # Replace <your-branch-name> with the specific branch you want to clone
-            - "--destination=hazemhashem100/backend:vlatest"
-            - "--dockerfile=Dockerfile"
-          volumeMounts:
-            - name: kaniko-secret
-              mountPath: /kaniko/.docker
+      - name: backend-kaniko
+        image: gcr.io/kaniko-project/executor:v1.6.0-debug
+        args:
+        - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
+        - "--git=branch=backend"
+        - "--destination=hazemhashem100/backend:vlatest"
+        - "--dockerfile=Dockerfile"
+        volumeMounts:
+        - name: kaniko-secret
+          mountPath: /kaniko/.docker
       restartPolicy: Never
-  backoffLimit: 2  # Optional: Specifies the number of retries before marking the job as failed
+  backoffLimit: 2
   volumes:
-    - name: kaniko-secret
-      secret:
-        secretName: regcred
-        items:
-          - key: .dockerconfigjson
-          path: config.json
+  - name: kaniko-secret
+    secret:
+      secretName: regcred
+      items:
+      - key: .dockerconfigjson
+        path: config.json
