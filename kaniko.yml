@@ -17,8 +17,7 @@ spec:
           image: gcr.io/kaniko-project/executor:v1.6.0-debug
           imagePullPolicy: Always
           args:
-            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
-            - "--branch=frontend"
+            - "--context=https://github.com/hazemhashem881/fullstack-shopping-cart.git:frontend"
             - "--destination=hazemhashem100/frontend:latest"
             - "--dockerfile=Dockerfile"
           volumeMounts:
