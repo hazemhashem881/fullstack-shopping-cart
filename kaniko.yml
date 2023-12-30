@@ -6,16 +6,15 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: kaniko
+      app: backend-kaniko
   template:
     metadata:
       labels:
-        app: kaniko
+        app: backend-kaniko
     spec:                                                 
       containers:
         - name: backend-kaniko
-          image: gcr.io/kaniko-project/executor:v1.6.0-debug
-          imagePullPolicy: Always
+          image: gcr.io/kaniko-project/executor:latest
           args:
             - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
             - "--git=branch=backend,single-branch=true" 
