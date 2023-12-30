@@ -14,10 +14,10 @@ spec:
     spec:                                                 
       containers:
         - name: backend-kaniko
-          image: gcr.io/kaniko-project/executor:latest
+          image: gcr.io/kaniko-project/executor:v1.6.0-debug
           args:
             - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
-            - "--git=branch=backend" 
+            - "--git=branch=backend"  # Replace <your-branch-name> with the specific branch you want to clone
             - "--destination=hazemhashem100/backend:latest"
             - "--dockerfile=Dockerfile"
           volumeMounts:
@@ -30,5 +30,3 @@ spec:
             items:
               - key: .dockerconfigjson
                 path: config.json
-
-
