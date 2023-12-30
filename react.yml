@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: front-app
-        image: hazemhashem100/frontend:latest
+        image: hazemhashem100/frontend:vlatest
         ports:
           - containerPort: 3000
 ---
