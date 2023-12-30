@@ -32,7 +32,6 @@ spec:
           volumeMounts:
             - name: git-repo-db
               mountPath: /tmp
-      restartPolicy: Never
     
       volumes:
         - name: git-repo-db
