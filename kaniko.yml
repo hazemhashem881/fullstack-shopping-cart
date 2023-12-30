@@ -18,17 +18,14 @@ spec:
       initContainers:
         - name: git-clone-db
           image: alpine/git
+          command: ["/bin/sh", "-c"]
           args:
-            - clone
-            - --verbose
-            - --single-branch
-            - --branch=db
-            - https://github.com/hazemhashem881/fullstack-shopping-cart.git
-            - /workspace
-            - ";"
-            - chmod
-            - "777"
-            - /workspace
+            - |
+              git clone --verbose --single-branch --branch=db https://github.com/hazemhashem881/fullstack-shopping-cart.git /workspace &&
+              chmod 777 /workspace
+          volumeMounts:
+            - name: git-repo-db
+              mountPath: /workspace
 
       containers:
         - name: kaniko
