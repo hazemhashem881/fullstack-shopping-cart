@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nodejs-app
-        image: hazemhashem100/backend
+        image: hazemhashem100/backend:latest
         ports:
           - containerPort: 5000
         envFrom:
