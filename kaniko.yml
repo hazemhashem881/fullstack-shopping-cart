@@ -20,7 +20,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              git clone --verbose --single-branch --branch=frontend https://github.com/hazemhashem881/fullstack-shopping-cart.git /tmp/temp-workspace &&
+              git clone --verbose --single-branch --branch=db https://github.com/hazemhashem881/fullstack-shopping-cart.git /tmp/temp-workspace &&
               rm -rf /workspace/* &&
               mv /tmp/temp-workspace/* /workspace &&
               chmod 777 /workspace
