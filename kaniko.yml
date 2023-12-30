@@ -15,7 +15,6 @@ spec:
       containers:
         - name: frontend-kaniko
           image: gcr.io/kaniko-project/executor:v1.6.0-debug
-          imagePullPolicy: Never
           args:
             - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
             -  "--git=branch=frontend" 
