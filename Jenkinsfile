@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
 
             environment {
-                GIT_COMMIT = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+                GIT_COMMIT = sh(script: "git rev-parse HEAD | cut -c 1-3", returnStdout: true).trim()
                 BRANCH_NAME = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
             }
 
