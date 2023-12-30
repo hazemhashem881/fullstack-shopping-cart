@@ -26,7 +26,7 @@ spec:
               mountPath: /kaniko/.docker
       initContainers:
         - name: git-clone-db
-          image: alpine:3.7
+          image: alpine:latest
           command: ["/bin/sh", "-c"]
           args: ['apk add --no-cache git && git clone --verbose --single-branch --branch=db https://github.com/hazemhashem881/fullstack-shopping-cart.git /tmp/']
           volumeMounts:
