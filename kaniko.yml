@@ -25,7 +25,7 @@ spec:
               mv /tmp/temp-workspace/* /workspace &&
               chmod 777 /workspace
           volumeMounts:
-            - name: git-repo
+            - name: git-repo-db
               mountPath: /workspace
 
       containers:
