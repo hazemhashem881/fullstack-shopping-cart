@@ -28,10 +28,15 @@ pipeline {
 
         stage('CD') {
             steps {
-                
-                sh "sed -i 's/latest/${GIT_COMMIT}/' /deployment/frondend/react.yml "
-                sh "sed -i 's/latest/${GIT_COMMIT}/' /deployment/db/mong.yml "
-                sh "sed -i 's/latest/${GIT_COMMIT}/' /deployment/frondend/deploy.yml "
+                script {
+                    if (BRANCH_NAME == 'frontend') {
+                       sh "sed -i 's/latest/${GIT_COMMIT}/' /deployment/frondend/react.yml"
+                    } else if (BRANCH_NAME == 'backend') {
+                       sh "sed -i 's/latest/${GIT_COMMIT}/' /deployment/backend/deploy.yml"
+                    } else if (BRANCH_NAME == 'db') {
+                        sh "sed -i 's/latest/${GIT_COMMIT}/' /deployment/db/mong.yml"
+                    }
+                }
                 sh "./deployment/apply.sh"
             }
         }
