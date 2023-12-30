@@ -25,7 +25,7 @@ pipeline {
         stage('CD') {
             steps {
                 sh "sed -i 's/latest/${GIT_COMMIT}/' mong.yaml"
-                sh "kubectl create ns mern"
+                sh "kubectl apply -f NS.yaml"
                 sh "kubectl apply -f pvc.yaml"
                 sh "kubectl apply -f conf.yaml"
                 sh "kubectl apply -f mong.yaml"
