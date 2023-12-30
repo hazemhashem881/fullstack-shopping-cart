@@ -18,7 +18,7 @@ spec:
           imagePullPolicy: Always
           args:
             - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git#Branch_name"
-            - "--destination=hazemhashem100/Container_name:vlatest"
+            - "--destination=hazemhashem100/Container_name:latest"
             - "--dockerfile=Dockerfile"
           volumeMounts:
             - name: kaniko-secret
