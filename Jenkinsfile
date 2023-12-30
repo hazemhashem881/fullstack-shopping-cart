@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
 
             environment {
-                GIT_COMMIT = sh(script: "git rev-parse HEAD | cut -c 1-3", returnStdout: true).trim()
+                GIT_COMMIT = sh(script: "git rev-parse HEAD | cut -c 1-7", returnStdout: true).trim()
             }
 
             steps {
@@ -17,7 +17,7 @@ pipeline {
         stage('Build') {
 
             steps {
-                sh "sed -i 's/vlatest/${env.GIT_COMMIT}/' kaniko.yml "
+                sh "sed -i 's/latest/${env.GIT_COMMIT}/' kaniko.yml "
                 sh "kubectl apply -f kaniko.yml"
             } 
         }
