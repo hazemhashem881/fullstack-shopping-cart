@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kaniko
+  name: dbkaniko
   namespace: jenkins
 spec:
   selector:
@@ -11,19 +11,37 @@ spec:
     metadata:
       labels:
         app: kaniko
-    spec:                                                 
+    spec:
+      initContainers:
+        - name: git-clone
+          image: alpine/git
+          args:
+            - clone
+            - --single-branch
+            - --branch=db
+            - https://github.com/hazemhashem881/fullstack-shopping-cart.git
+            - /workspace
+          volumeMounts:
+            - name: git-repo
+              mountPath: /workspace
+
       containers:
         - name: kaniko
           image: gcr.io/kaniko-project/executor:v1.6.0-debug
           imagePullPolicy: Always
           args:
-            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git#db"
+            - "--context=/workspace"
             - "--destination=hazemhashem100/db:latest"
-            - "--dockerfile=Dockerfile"
+            - "--dockerfile=/workspace/Dockerfile"
           volumeMounts:
+            - name: git-repo
+              mountPath: /workspace
             - name: kaniko-secret
               mountPath: /kaniko/.docker
+
       volumes:
+        - name: git-repo
+          emptyDir: {}
         - name: kaniko-secret
           secret:
             secretName: regcred
