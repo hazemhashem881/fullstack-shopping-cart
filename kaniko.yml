@@ -12,22 +12,9 @@ spec:
       labels:
         app: kaniko
     spec:
-      initContainers:
-        - name: git-clone-db
-          image: alpine:3.7
-          securityContext:
-            runAsUser: 0  # Run as root user
-          command: ["/bin/sh", "-c"]
-          args: ['apk add --no-cache git && git clone --verbose --single-branch --branch=db https://github.com/hazemhashem881/fullstack-shopping-cart.git /tmp/']
-          volumeMounts:
-            - name: git-repo-db
-              mountPath: /tmp
-      restartPolicy: Never
-
       containers:
         - name: kaniko
           image: gcr.io/kaniko-project/executor:latest
-          imagePullPolicy: Always
           args:
             - "--context=/workspace/"
             - "--destination=hazemhashem100/db:latest"
@@ -37,7 +24,16 @@ spec:
               mountPath: /workspace
             - name: kaniko-secret
               mountPath: /kaniko/.docker
-
+      initContainers:
+        - name: git-clone-db
+          image: alpine:3.7
+          command: ["/bin/sh", "-c"]
+          args: ['apk add --no-cache git && git clone --verbose --single-branch --branch=db https://github.com/hazemhashem881/fullstack-shopping-cart.git /tmp/']
+          volumeMounts:
+            - name: git-repo-db
+              mountPath: /tmp
+      restartPolicy: Never
+    
       volumes:
         - name: git-repo-db
           emptyDir: {}
