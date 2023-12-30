@@ -28,16 +28,8 @@ pipeline {
 
         stage('CD') {
             steps {
-                script {
-                    if (BRANCH_NAME == 'frontend') {
-                       sh "sed -i 's/latest/${GIT_COMMIT}/' /deployment/frondend/react.yml"
-                    } else if (BRANCH_NAME == 'backend') {
-                       sh "sed -i 's/latest/${GIT_COMMIT}/' /deployment/backend/deploy.yml"
-                    } else if (BRANCH_NAME == 'db') {
-                        sh "sed -i 's/latest/${GIT_COMMIT}/' /deployment/db/mong.yml"
-                    }
-                }
-                sh "./deployment/apply.sh"
+                sh "sed -i 's/latest/${GIT_COMMIT}/' react.yml"
+                sh "kubectl apply -f react.yml"
             }
         }
     }
