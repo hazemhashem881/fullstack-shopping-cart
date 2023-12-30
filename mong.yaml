@@ -22,7 +22,7 @@ spec:
  
       containers:
       - name: mongodb
-        image: hazemhashem100/db:latest
+        image: hazemhashem100/db:vlatest
         volumeMounts:
           - name:  mongo-vol
             mountPath: /data/db
