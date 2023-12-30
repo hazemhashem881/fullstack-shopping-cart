@@ -21,7 +21,7 @@ spec:
             - --single-branch
             - --branch=db
             - https://github.com/hazemhashem881/fullstack-shopping-cart.git
-            - /db
+            - /workspace
 
       containers:
         - name: kaniko
@@ -33,7 +33,7 @@ spec:
             - "--dockerfile=/workspace/Dockerfile"
           volumeMounts:
             - name: git-repo-db
-              mountPath: /db
+              mountPath: /workspace
             - name: kaniko-secret
               mountPath: /kaniko/.docker
 
