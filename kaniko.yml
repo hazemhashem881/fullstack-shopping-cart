@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dbkaniko
+  name: kaniko
   namespace: jenkins
 spec:
   selector:
@@ -11,37 +11,19 @@ spec:
     metadata:
       labels:
         app: kaniko
-    spec:
+    spec:                                                 
       containers:
         - name: kaniko
           image: gcr.io/kaniko-project/executor:latest
           args:
-            - "--context=/workspace/"
+            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
+            - "--git=branch=db,single-branch=true"  # Replace <your-branch-name> with the specific branch you want to clone
             - "--destination=hazemhashem100/db:latest"
-            - "--dockerfile=/workspace/Dockerfile"
+            - "--dockerfile=Dockerfile"
           volumeMounts:
-            - name: git-repo-db
-              mountPath: /workspace
             - name: kaniko-secret
               mountPath: /kaniko/.docker
-      initContainers:
-        - name: git-clone
-          image: alpine/git 
-          imagePullPolicy: Always
-          args:
-            - clone
-            - --single-branch
-            - --branch=db  
-            - https://github.com/hazemhashem881/fullstack-shopping-cart.git
-            - /workspace
-          volumeMounts:
-            - name: git-repo-db
-              mountPath: /workspace
-
-    
       volumes:
-        - name: git-repo-db
-          emptyDir: {}
         - name: kaniko-secret
           secret:
             secretName: regcred
