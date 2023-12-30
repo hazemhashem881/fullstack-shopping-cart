@@ -17,7 +17,7 @@ spec:
           image: gcr.io/kaniko-project/executor:latest
           args:
             - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
-            - "--git=branch=backend,single-branch=true" 
+            - "--git=branch=backend" 
             - "--destination=hazemhashem100/backend:latest"
             - "--dockerfile=Dockerfile"
           volumeMounts:
