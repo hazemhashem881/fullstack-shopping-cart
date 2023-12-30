@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kaniko
+  name: db-kaniko
   namespace: jenkins
 spec:
   selector:
     matchLabels:
-      app: kaniko
+      app: db-kaniko
   template:
     metadata:
       labels:
-        app: kaniko
+        app: db-kaniko
     spec:                                                 
       containers:
-        - name: kaniko
+        - name: db-kaniko
           image: gcr.io/kaniko-project/executor:latest
           args:
             - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
