@@ -25,13 +25,18 @@ spec:
             - name: kaniko-secret
               mountPath: /kaniko/.docker
       initContainers:
-        - name: git-clone-db
-          image: alpine:latest
-          command: ["/bin/sh", "-c"]
-          args: ['apk add --no-cache git && git clone --verbose --single-branch --branch=db https://github.com/hazemhashem881/fullstack-shopping-cart.git /tmp/']
+        - name: git-clone
+          image: alpine/git 
+          args:
+            - clone
+            - --single-branch
+            - --branch=db  
+            - https://github.com/hazemhashem881/fullstack-shopping-cart.git
+            - /workspace
           volumeMounts:
             - name: git-repo-db
-              mountPath: /tmp
+              mountPath: /workspace
+
     
       volumes:
         - name: git-repo-db
