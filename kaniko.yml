@@ -12,6 +12,9 @@ spec:
       labels:
         app: kaniko
     spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
       initContainers:
         - name: git-clone-db
           image: alpine/git
@@ -21,6 +24,10 @@ spec:
             - --single-branch
             - --branch=db
             - https://github.com/hazemhashem881/fullstack-shopping-cart.git
+            - /workspace
+            - ";"
+            - chmod
+            - "777"
             - /workspace
 
       containers:
