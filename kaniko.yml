@@ -1,5 +1,5 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: db-kaniko
   namespace: jenkins
@@ -23,7 +23,6 @@ spec:
           volumeMounts:
             - name: kaniko-secret
               mountPath: /kaniko/.docker
-      restartPolicy: Never
       volumes:
         - name: kaniko-secret
           secret:
