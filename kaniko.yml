@@ -22,8 +22,7 @@ spec:
             - "--dockerfile=Dockerfile"
           volumeMounts:
             - name: kaniko-secret
-              mountPath: /kaniko/.docker
-      restartPolicy: Never        
+              mountPath: /kaniko/.docker  
       volumes:
         - name: kaniko-secret
           secret:
