@@ -1,13 +1,18 @@
 # Stage 1: Build the application
 FROM node:14 as build
 
+# Install dependencies required for cwebp-bin
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Install Node.js dependencies
 RUN npm install
 
 # Copy the source code
