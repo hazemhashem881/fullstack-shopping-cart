@@ -1,31 +1,32 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: backend-kaniko
   namespace: jenkins
 spec:
+  selector:
+    matchLabels:
+      app: backend-kaniko
   template:
     metadata:
       labels:
         app: backend-kaniko
-    spec:
+    spec:                                                 
       containers:
-      - name: backend-kaniko
-        image: gcr.io/kaniko-project/executor:v1.6.0-debug
-        args:
-        - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
-        - "--git=branch=backend"
-        - "--destination=hazemhashem100/backend:vlatest"
-        - "--dockerfile=Dockerfile"
-        volumeMounts:
+        - name: backend-kaniko
+          image: gcr.io/kaniko-project/executor:latest
+          args:
+            - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
+            - "--git=branch=backend"  # Replace <your-branch-name> with the specific branch you want to clone
+            - "--destination=hazemhashem100/db:vlatest"
+            - "--dockerfile=Dockerfile"
+          volumeMounts:
+            - name: kaniko-secret
+              mountPath: /kaniko/.docker
+      volumes:
         - name: kaniko-secret
-          mountPath: /kaniko/.docker
-      restartPolicy: Never
-  backoffLimit: 2
-  volumes:
-  - name: kaniko-secret
-    secret:
-      secretName: regcred
-      items:
-      - key: .dockerconfigjson
-        path: config.json
+          secret:
+            secretName: regcred
+            items:
+              - key: .dockerconfigjson
+                path: config.json
