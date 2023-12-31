@@ -18,7 +18,7 @@ spec:
           args:
             - "--context=git://github.com/hazemhashem881/fullstack-shopping-cart.git"
             - "--git=branch=backend"  # Replace <your-branch-name> with the specific branch you want to clone
-            - "--destination=hazemhashem100/db:vlatest"
+            - "--destination=hazemhashem100/backend:vlatest"
             - "--dockerfile=Dockerfile"
           volumeMounts:
             - name: kaniko-secret
