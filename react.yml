@@ -25,12 +25,14 @@ kind: Service
 metadata:
   name: frontendsvc
   namespace: mern
+  annotations: 
+    service.beta.kubernetes.io/aws-load-balancer-type: "External"
 spec:
   selector:
     app: front-app
-  type: NodePort
+  type: LoadBalancer
+  #type: NodePort
   ports:
     - protocol: TCP
       port: 80  # Exposed port on the service
       targetPort: 3000  # Port your frontend application is listening on
-      nodePort: 31000
