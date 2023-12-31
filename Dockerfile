@@ -1,31 +1,16 @@
-# Stage 1: Build the application
-FROM node:14 as build
+FROM node:14-alpine as build
 
-# Set the working directory
-WORKDIR /app
+WORKDIR /usr/local/share/frontend
 
-# Copy package.json and package-lock.json
 COPY package*.json ./
-
 RUN apk --update add libtool automake autoconf nasm gcc make g++ zlib-dev
-
-# Install Node.js dependencies
 RUN npm install
-
-# Copy the source code
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Stage 2: Serve the application with a lightweight server
-FROM nginx:alpine
+FROM danjellz/http-server:1.2
 
-# Copy built assets from the build stage
-COPY --from=build /app/build /usr/share/nginx/html
+ENV PORT=3000
+EXPOSE 3000
 
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=build /usr/local/share/frontend/public .
