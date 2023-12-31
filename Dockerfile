@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM node:14-alpine as build
+FROM node:14 as build
 
 # Set the working directory
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Stage 2: Serve the application
+# Stage 2: Serve the application with a lightweight server
 FROM nginx:alpine
 
 # Copy built assets from the build stage
